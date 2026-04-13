@@ -1,5 +1,9 @@
 # Scorecard: variant_hybrid_rerank
+<<<<<<< HEAD
 Generated: 2026-04-13 16:51
+=======
+Generated: 2026-04-13 17:46
+>>>>>>> recover-results
 
 ## Summary
 
@@ -22,5 +26,9 @@ Generated: 2026-04-13 16:51
 | q06 | SLA | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong danh  |
 | q07 | Access Control | 5 | 5 | 5 | 2 | Mọi thông tin trong câu trả lời đều có trong danh  |
 | q08 | HR Policy | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+<<<<<<< HEAD
 | q09 | Insufficient Context | 1 | 1 | None | 1 | Câu trả lời không cung cấp thông tin nào từ danh s |
+=======
+| q09 | Insufficient Context | 1 | 1 | None | 1 | Câu trả lời không có thông tin nào từ danh sách tà |
+>>>>>>> recover-results
 | q10 | Refund | 2 | 1 | 5 | 2 | Câu trả lời không có thông tin về quy trình hoàn t |

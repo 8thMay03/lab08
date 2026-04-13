@@ -1,14 +1,25 @@
 # Scorecard: baseline_dense
+<<<<<<< HEAD
 Generated: 2026-04-13 16:48
+=======
+Generated: 2026-04-13 17:45
+>>>>>>> recover-results
 
 ## Summary
 
 | Metric | Average Score |
 |--------|--------------|
+<<<<<<< HEAD
 | Faithfulness | 4.40/5 |
 | Relevance | 4.50/5 |
 | Context Recall | 5.00/5 |
 | Completeness | 3.90/5 |
+=======
+| Faithfulness | 4.00/5 |
+| Relevance | 4.10/5 |
+| Context Recall | 5.00/5 |
+| Completeness | 3.70/5 |
+>>>>>>> recover-results
 
 ## Per-Question Results
 
@@ -22,5 +33,9 @@ Generated: 2026-04-13 16:48
 | q06 | SLA | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong các c |
 | q07 | Access Control | 5 | 5 | 5 | 2 | Mọi thông tin trong câu trả lời đều có trong danh  |
 | q08 | HR Policy | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+<<<<<<< HEAD
 | q09 | Insufficient Context | 5 | 5 | None | 3 | Mọi thông tin trong câu trả lời đều có trong danh  |
+=======
+| q09 | Insufficient Context | 1 | 1 | None | 1 | Câu trả lời không có thông tin nào từ danh sách tà |
+>>>>>>> recover-results
 | q10 | Refund | 1 | 1 | 5 | 2 | Câu trả lời không có thông tin nào từ danh sách tà |
