@@ -28,10 +28,10 @@ llm_model = "gpt-4o-mini"
 | Completeness | 4 /5 |
 
 
-Faithfulness (5/5): Tất cả câu trả lời đều bám sát tài liệu, không bịa đặt, luôn có dẫn nguồn.
-Answer Relevance (4/5): Đa số trả lời đúng trọng tâm, nhưng có trường hợp trả lời ngắn hoặc thiếu chi tiết.
-Context Recall (4/5): Truy xuất đúng đoạn liên quan, nhưng đôi khi bỏ sót thông tin phụ.
-Completeness (4/5): Đủ ý chính, nhưng có trường hợp chưa bao quát hết điều kiện, ngoại lệ hoặc trả lời "không biết"
+- Faithfulness (5/5): Tất cả câu trả lời đều bám sát tài liệu, không bịa đặt, luôn có dẫn nguồn.
+- Answer Relevance (4/5): Đa số trả lời đúng trọng tâm, nhưng có trường hợp trả lời ngắn hoặc thiếu chi tiết.
+- Context Recall (4/5): Truy xuất đúng đoạn liên quan, nhưng đôi khi bỏ sót thông tin phụ.
+- Completeness (4/5): Đủ ý chính, nhưng có trường hợp chưa bao quát hết điều kiện, ngoại lệ hoặc trả lời "không biết"
 **Câu hỏi yếu nhất (điểm thấp):**
 1. "ERR-403-AUTH là lỗi gì?" — completeness = 2/5, context recall = 2/5: Không tìm thấy thông tin, hệ thống trả về "Tôi không biết" dù có thể có liên quan trong tài liệu.
 2. "Khách hàng có thể yêu cầu hoàn tiền trong bao nhiêu ngày?" — completeness = 3/5: Trả lời đúng ý chính nhưng thiếu chi tiết về ngoại lệ và điều kiện áp dụng.
