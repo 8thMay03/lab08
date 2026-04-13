@@ -1,26 +1,26 @@
 # Scorecard: baseline_dense
-Generated: 2026-04-13 17:45
+Generated: 2026-04-13 18:18
 
 ## Summary
 
 | Metric | Average Score |
 |--------|--------------|
-| Faithfulness | 4.00/5 |
-| Relevance | 4.10/5 |
+| Faithfulness | 4.30/5 |
+| Relevance | 4.50/5 |
 | Context Recall | 5.00/5 |
-| Completeness | 3.70/5 |
+| Completeness | 3.40/5 |
 
 ## Per-Question Results
 
 | ID | Category | Faithful | Relevant | Recall | Complete | Notes |
 |----|----------|----------|----------|--------|----------|-------|
-| q01 | SLA | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong danh  |
-| q02 | Refund | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong danh  |
-| q03 | Access Control | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong danh  |
-| q04 | Refund | 3 | 4 | 5 | 3 | Câu trả lời có thông tin về sản phẩm kỹ thuật số k |
-| q05 | IT Helpdesk | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong danh  |
-| q06 | SLA | 5 | 5 | 5 | 5 | Mọi thông tin trong câu trả lời đều có trong các c |
-| q07 | Access Control | 5 | 5 | 5 | 2 | Mọi thông tin trong câu trả lời đều có trong danh  |
-| q08 | HR Policy | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
-| q09 | Insufficient Context | 1 | 1 | None | 1 | Câu trả lời không có thông tin nào từ danh sách tà |
-| q10 | Refund | 1 | 1 | 5 | 2 | Câu trả lời không có thông tin nào từ danh sách tà |
+| gq01 | SLA | 5 | 5 | 5 | 3 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq02 | Cross-Document | 5 | 5 | 5 | 2 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq03 | Refund | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq04 | Refund | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq05 | Access Control | 2 | 5 | 5 | 4 | Thông tin về việc contractor từ bên ngoài công ty  |
+| gq06 | Cross-Document | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq07 | Insufficient Context | 1 | 1 | None | 1 | Câu trả lời không có thông tin nào từ danh sách tà |
+| gq08 | HR Policy | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq09 | IT Helpdesk | 5 | 4 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
+| gq10 | Refund | 5 | 5 | 5 | 4 | Mọi thông tin trong câu trả lời đều có trong danh  |
