@@ -52,13 +52,6 @@ def preprocess_document(raw_text: str, filepath: str) -> Dict[str, Any]:
         Dict chứa:
           - "text": nội dung đã clean
           - "metadata": dict với source, department, effective_date, access
-
-    TODO Sprint 1:
-    - Extract metadata từ dòng đầu file (Source, Department, Effective Date, Access)
-    - Bỏ các dòng header metadata khỏi nội dung chính
-    - Normalize khoảng trắng, xóa ký tự rác
-
-    Gợi ý: dùng regex để parse dòng "Key: Value" ở đầu file.
     """
     lines = raw_text.strip().split("\n")
     metadata = {
@@ -73,8 +66,6 @@ def preprocess_document(raw_text: str, filepath: str) -> Dict[str, Any]:
 
     for line in lines:
         if not header_done:
-            # TODO: Parse metadata từ các dòng "Key: Value"
-            # Ví dụ: "Source: policy/refund-v4.pdf" → metadata["source"] = "policy/refund-v4.pdf"
             if line.startswith("Source:"):
                 metadata["source"] = line.replace("Source:", "").strip()
             elif line.startswith("Department:"):
@@ -84,20 +75,20 @@ def preprocess_document(raw_text: str, filepath: str) -> Dict[str, Any]:
             elif line.startswith("Access:"):
                 metadata["access"] = line.replace("Access:", "").strip()
             elif line.startswith("==="):
-                # Gặp section heading đầu tiên → kết thúc header
                 header_done = True
                 content_lines.append(line)
-            elif line.strip() == "" or line.isupper():
-                # Dòng tên tài liệu (toàn chữ hoa) hoặc dòng trống
+            elif line.strip() == "" or (line.isupper() and len(line.strip()) > 2):
                 continue
+            else:
+                # Bắt đầu nội dung khi không có dòng === (metadata đã xong)
+                header_done = True
+                content_lines.append(line)
         else:
             content_lines.append(line)
 
     cleaned_text = "\n".join(content_lines)
 
-    # TODO: Thêm bước normalize text nếu cần
-    # Gợi ý: bỏ ký tự đặc biệt thừa, chuẩn hóa dấu câu
-    cleaned_text = re.sub(r"\n{3,}", "\n\n", cleaned_text)  # max 2 dòng trống liên tiếp
+    cleaned_text = re.sub(r"\n{3,}", "\n\n", cleaned_text)
 
     return {
         "text": cleaned_text,
@@ -122,21 +113,11 @@ def chunk_document(doc: Dict[str, Any]) -> List[Dict[str, Any]]:
           - "text": nội dung chunk
           - "metadata": metadata gốc + "section" của chunk đó
 
-    TODO Sprint 1:
-    1. Split theo heading "=== Section ... ===" hoặc "=== Phần ... ===" trước
-    2. Nếu section quá dài (> CHUNK_SIZE * 4 ký tự), split tiếp theo paragraph
-    3. Thêm overlap: lấy đoạn cuối của chunk trước vào đầu chunk tiếp theo
-    4. Mỗi chunk PHẢI giữ metadata đầy đủ từ tài liệu gốc
-
-    Gợi ý: Ưu tiên cắt tại ranh giới tự nhiên (section, paragraph)
-    thay vì cắt theo token count cứng.
     """
     text = doc["text"]
     base_metadata = doc["metadata"].copy()
     chunks = []
 
-    # TODO: Implement chunking theo section heading
-    # Bước 1: Split theo heading pattern "=== ... ==="
     sections = re.split(r"(===.*?===)", text)
 
     current_section = "General"
@@ -178,41 +159,47 @@ def _split_by_size(
     overlap_chars: int = CHUNK_OVERLAP * 4,
 ) -> List[Dict[str, Any]]:
     """
-    Helper: Split text dài thành chunks với overlap.
-
-    TODO Sprint 1:
-    Hiện tại dùng split đơn giản theo ký tự.
-    Cải thiện: split theo paragraph (\n\n) trước, rồi mới ghép đến khi đủ size.
+    Chia section dài thành nhiều chunk: ưu tiên cắt tại \\n\\n, \\n, hoặc khoảng trắng;
+    giữ overlap giữa hai chunk liên tiếp.
     """
+    meta = {**base_metadata, "section": section}
+    text = text.strip()
+    if not text:
+        return []
+
     if len(text) <= chunk_chars:
-        # Toàn bộ section vừa một chunk
-        return [{
-            "text": text,
-            "metadata": {**base_metadata, "section": section},
-        }]
+        return [{"text": text, "metadata": meta.copy()}]
 
-    # TODO: Implement split theo paragraph với overlap
-    # Gợi ý:
-    # paragraphs = text.split("\n\n")
-    # Ghép paragraphs lại cho đến khi gần đủ chunk_chars
-    # Lấy overlap từ đoạn cuối chunk trước
-    chunks = []
+    chunks: List[Dict[str, Any]] = []
     start = 0
-    while start < len(text):
-        end = min(start + chunk_chars, len(text))
-        chunk_text = text[start:end]
+    n = len(text)
+    min_break = max(chunk_chars // 5, 80)
 
-        # TODO: Tìm ranh giới tự nhiên gần nhất (dấu xuống dòng, dấu chấm)
-        # thay vì cắt giữa câu
+    while start < n:
+        end = min(start + chunk_chars, n)
+        if end < n:
+            window = text[start:end]
+            br = window.rfind("\n\n")
+            if br == -1 or br < min_break:
+                br = window.rfind("\n")
+            if br == -1 or br < min_break:
+                br = window.rfind(" ")
+            if br != -1 and br >= min_break:
+                end = start + br
 
-        chunks.append({
-            "text": chunk_text,
-            "metadata": {**base_metadata, "section": section},
-        })
-        # Overlap: lùi lại overlap_chars để chunk sau có ngữ cảnh từ chunk trước
-        start = end - overlap_chars
+        chunk_text = text[start:end].strip()
+        if chunk_text:
+            chunks.append({"text": chunk_text, "metadata": meta.copy()})
+
+        if end >= n:
+            break
+        next_start = end - overlap_chars
+        if next_start <= start:
+            next_start = end
+        start = next_start
 
     return chunks
+
 
 
 # =============================================================================
